@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">news-app</string>
+
+    <!--  Bottom navigation:  -->
+    <string name="bottom_nav_news">News</string>
+    <string name="bottom_nav_search">Search</string>
+    <string name="bottom_nav_favorites">Favorites</string>
+
+    <!--  Headers:  -->
+    <string name="header_home">Home</string>
+    <string name="header_search">Search</string>
+    <string name="header_favorites">Favorites</string>
 </resources>
