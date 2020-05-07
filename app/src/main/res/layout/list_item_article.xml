@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="model"
             type="com.example.news_app.presentation.model.ArticleModel" />
-
     </data>
 
     <LinearLayout
@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/article_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             tools:ignore="ContentDescription"
@@ -28,19 +29,23 @@
             android:layout_margin="4dp">
 
             <TextView
+                android:id="@+id/article_author"
                 android:layout_width="match_parent"
+                android:text="@{model.author}"
                 android:layout_height="wrap_content"
                 tools:text="Taras Koloshmatin" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Covid. You will die" />
+                tools:text="Covid. You will die"
+                android:text="@{model.title}" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="A pioneer of the gene-editing technology has devised a diagnostic test for the infection that could be as simple as a pregnancy test." />
+                tools:text="A pioneer of the gene-editing technology has devised a diagnostic test for the infection that could be as simple as a pregnancy test."
+                android:text="@{model.description}" />
 
         </LinearLayout>
     </LinearLayout>
