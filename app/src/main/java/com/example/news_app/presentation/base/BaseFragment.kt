@@ -1,6 +1,5 @@
 package com.example.news_app.presentation.base
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -8,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.news_app.R
+import com.example.news_app.utils.createProgressBar
 
 abstract class BaseFragment<VM : BaseViewModel> : Fragment(), LifecycleOwner {
 
@@ -56,13 +57,21 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment(), LifecycleOwner {
 //        }
     }
 
-//    protected fun showLoading() = context?.let {
-//        progressDialog = createProgressBar(it)
-//        progressDialog?.show()
-//    }
-//
-//    protected fun hideLoading() {
-//        progressDialog?.dismiss()
-//        progressDialog = null
-//    }
+    protected fun setLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            showLoading()
+        } else {
+            hideLoading()
+        }
+    }
+
+    protected fun showLoading() = context?.let {
+        progressDialog = createProgressBar(it)
+        progressDialog?.show()
+    }
+
+    protected fun hideLoading() {
+        progressDialog?.dismiss()
+        progressDialog = null
+    }
 }

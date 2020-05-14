@@ -3,7 +3,6 @@ package com.example.news_app.presentation.home
 import androidx.lifecycle.MutableLiveData
 import com.example.news_app.presentation.base.BaseViewModel
 import com.example.news_app.presentation.model.ArticleModel
-import com.example.news_app.utils.ViewModelData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -11,12 +10,14 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : BaseViewModel() {
 
-    val articleLiveData = MutableLiveData<ViewModelData<List<ArticleModel>, Exception>>()
+    val articleLiveData = MutableLiveData<List<ArticleModel>>()
 
     fun getArticleList() = CoroutineScope(Dispatchers.IO).launch {
         try {
+            loadingLiveData.postValue(true)
+            throw Exception("some exception message")
 //            val response = homeRepository.loadArticleList()
-//            articleLiveData.postValue(ViewModelData(response))
+//            articleLiveData.postValue(response)
             val articleList = arrayListOf(
                 ArticleModel(
                     author = "Green Chack",
@@ -38,9 +39,11 @@ class HomeViewModel : BaseViewModel() {
                 )
             )
             delay(3000)
-            articleLiveData.postValue(ViewModelData(data = articleList))
+            articleLiveData.postValue(articleList)
         } catch (e: Exception) {
-            articleLiveData.postValue(ViewModelData.error(error = e))
+            errorMessageLiveData.postValue(e.message)
+        } finally {
+            loadingLiveData.postValue(false)
         }
     }
 }

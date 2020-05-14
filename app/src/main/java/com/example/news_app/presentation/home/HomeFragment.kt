@@ -1,10 +1,12 @@
 package com.example.news_app.presentation.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
 import com.example.news_app.presentation.base.BaseFragment
+import com.example.news_app.utils.showSimpleErrorDialog
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 
@@ -25,13 +27,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
         setAdapter()
         viewModel.getArticleList()
-        viewModel.articleLiveData.observe(viewLifecycleOwner, Observer {
-            if (it.data!= null) {
-                homeAdapter.setList(it.data)
-            }
-            if (it.error!= null) {
-                // TODO: show error message
-            }
+
+        viewModel.articleLiveData.observe(viewLifecycleOwner, Observer { list ->
+            homeAdapter.setList(list)
+        })
+        viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { exceptionMessage ->
+            showSimpleErrorDialog(context, null, exceptionMessage, null, null)
+        })
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
+            setLoadingState(isLoading)
         })
     }
 
