@@ -15,7 +15,6 @@ class HomeViewModel : BaseViewModel() {
     fun getArticleList() = CoroutineScope(Dispatchers.IO).launch {
         try {
             loadingLiveData.postValue(true)
-            throw Exception("some exception message")
 //            val response = homeRepository.loadArticleList()
 //            articleLiveData.postValue(response)
             val articleList = arrayListOf(
