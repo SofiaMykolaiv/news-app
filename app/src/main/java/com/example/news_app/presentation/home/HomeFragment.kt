@@ -1,6 +1,7 @@
 package com.example.news_app.presentation.home
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R

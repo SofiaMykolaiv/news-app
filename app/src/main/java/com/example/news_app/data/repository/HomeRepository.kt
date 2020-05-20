@@ -6,7 +6,7 @@ import com.example.news_app.presentation.model.ArticleModel
 import kotlinx.coroutines.delay
 
 class HomeRepository : BaseRepository {
-    suspend fun loadArticleList(): List<ArticleModel> {
+    suspend fun loadArticleListNetwork(): List<ArticleModel> {
         val response = arrayListOf(
             ArticleResponse(
                 author = "Green Chack",

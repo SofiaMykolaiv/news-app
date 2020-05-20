@@ -1,6 +1,7 @@
 package com.example.news_app.presentation
 
 import android.app.Application
+import com.example.news_app.di.fragmentModule
 import com.example.news_app.di.repositoryModule
 import com.example.news_app.di.viewModelModule
 import com.facebook.stetho.Stetho
@@ -29,6 +30,7 @@ class NewsApplication : Application() {
         androidContext(this@NewsApplication)
         modules(
             listOf(
+                fragmentModule,
                 viewModelModule,
                 repositoryModule/*,
             networkModule,

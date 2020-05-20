@@ -19,7 +19,7 @@ class HomeViewModel : BaseViewModel() {
     fun getArticleList() = CoroutineScope(Dispatchers.IO).launch {
         try {
             loadingLiveData.postValue(true)
-            val response = homeRepository.loadArticleList()
+            val response = homeRepository.loadArticleListNetwork()
             articleLiveData.postValue(response)
         } catch (e: Exception) {
             errorMessageLiveData.postValue(e.message)

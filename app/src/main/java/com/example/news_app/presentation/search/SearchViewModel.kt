@@ -1,9 +1,13 @@
 package com.example.news_app.presentation.search
 
 import androidx.lifecycle.MutableLiveData
+import com.example.news_app.data.repository.HomeRepository
 import com.example.news_app.presentation.base.BaseViewModel
+import org.koin.core.inject
 
 class SearchViewModel() : BaseViewModel() {
+
+    val homeRepository by inject<HomeRepository>()
 
     val scoreLiveData = MutableLiveData<Int>()
     var score = 0
