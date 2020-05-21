@@ -3,10 +3,6 @@ package com.example.news_app.data.mapper
 import com.example.news_app.data.network.response.ArticleResponse
 import com.example.news_app.presentation.model.ArticleModel
 
-//fun NewsResponse.mapResponseToModel() = NewsModel(
-//
-//)
-
 fun ArticleResponse.mapResponseToModel(articleResponse: ArticleResponse) = ArticleModel(
     author = articleResponse.author,
     title = articleResponse.title,
