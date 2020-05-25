@@ -6,7 +6,6 @@ import com.example.news_app.presentation.base.BaseViewModel
 import com.example.news_app.presentation.model.ArticleModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
@@ -19,8 +18,8 @@ class HomeViewModel : BaseViewModel() {
     fun getArticleList() = CoroutineScope(Dispatchers.IO).launch {
         try {
             loadingLiveData.postValue(true)
-            val response = homeRepository.loadArticleListNetwork()
-            articleLiveData.postValue(response)
+            val articleList = homeRepository.loadArticleListNetwork()
+            articleLiveData.postValue(articleList)
         } catch (e: Exception) {
             errorMessageLiveData.postValue(e.message)
         } finally {

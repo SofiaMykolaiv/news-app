@@ -1,9 +1,7 @@
 package com.example.news_app.presentation
 
 import android.app.Application
-import com.example.news_app.di.fragmentModule
-import com.example.news_app.di.repositoryModule
-import com.example.news_app.di.viewModelModule
+import com.example.news_app.di.*
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -32,9 +30,9 @@ class NewsApplication : Application() {
             listOf(
                 fragmentModule,
                 viewModelModule,
-                repositoryModule/*,
-            networkModule,
-            serviceModule,
+                repositoryModule,
+                networkModule,
+                serviceModule/*,
             databaseModule,
             daoModule*/
             )
