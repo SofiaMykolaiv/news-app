@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_default">
 
-    <Button
-        android:id="@+id/button_minus"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="-" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button_plus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="+" />
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Search news"
+            android:textColor="@color/black"
+            tools:ignore="Autofill,TextFields" />
 
-    <Button
-        android:id="@+id/button_divide_zero"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="Divide by zero"
-        android:textAllCaps="false"/>
+        <ImageView
+            android:id="@+id/image_search"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/spindrift"
+            android:padding="@dimen/spacing_quarter"
+            android:src="@drawable/ic_bottom_nav_search"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_result"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
-        android:textSize="20sp"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/spacing_half"
+        tools:listitem="@layout/list_item_search_article" />
 </LinearLayout>

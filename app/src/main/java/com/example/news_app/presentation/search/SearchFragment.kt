@@ -3,12 +3,15 @@ package com.example.news_app.presentation.search
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
 import com.example.news_app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
-class SearchFragment() : BaseFragment<SearchViewModel>() {
+class SearchFragment : BaseFragment<SearchViewModel>() {
+
+    private lateinit var searchAdapter: SearchAdapter
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -21,25 +24,33 @@ class SearchFragment() : BaseFragment<SearchViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        button_minus.setOnClickListener {
-            viewModel.setNegativeScoreData()
+        setAdapter()
+
+        image_search.setOnClickListener {
+            val searchText = edit_search.text.toString()
+
+            if (searchText.isEmpty()) {
+                Toast.makeText(context, "Enter search field first, please.", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                viewModel.getSearchArticleList(searchField = searchText)
+            }
         }
 
-        button_plus.setOnClickListener {
-            viewModel.setPositiveScoreData()
-        }
-
-        button_divide_zero.setOnClickListener {
-            viewModel.setDivideByZeroScoreData()
-        }
-
-        viewModel.scoreLiveData.observe(viewLifecycleOwner, Observer {
-            text_result.text = it.toString()
+        viewModel.searchArticleLiveData.observe(viewLifecycleOwner, Observer { list ->
+            searchAdapter.setList(list)
         })
-
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { exceptionMessage ->
             Toast.makeText(context, exceptionMessage, Toast.LENGTH_SHORT).show()
         })
+        viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
+            setLoadingState(isLoading)
+        })
+    }
 
+    private fun setAdapter() {
+        searchAdapter = SearchAdapter()
+        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view.adapter = searchAdapter
     }
 }

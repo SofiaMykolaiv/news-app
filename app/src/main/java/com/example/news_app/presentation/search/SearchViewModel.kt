@@ -1,33 +1,29 @@
 package com.example.news_app.presentation.search
 
 import androidx.lifecycle.MutableLiveData
-import com.example.news_app.data.repository.HomeRepository
+import com.example.news_app.data.repository.SearchRepository
 import com.example.news_app.presentation.base.BaseViewModel
+import com.example.news_app.presentation.model.SearchArticleModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.core.inject
 
 class SearchViewModel() : BaseViewModel() {
 
-    val homeRepository by inject<HomeRepository>()
+    private val searchRepository by inject<SearchRepository>()
 
-    val scoreLiveData = MutableLiveData<Int>()
-    var score = 0
+    val searchArticleLiveData = MutableLiveData<List<SearchArticleModel>>()
 
-    fun setPositiveScoreData() {
-        score += 1
-        scoreLiveData.value = score
-    }
-
-    fun setNegativeScoreData() {
-        score -= 1
-        scoreLiveData.value = score
-    }
-
-    fun setDivideByZeroScoreData() {
+    fun getSearchArticleList(searchField: String) = CoroutineScope(Dispatchers.IO).launch {
         try {
-            score /= 0
-            scoreLiveData.value = score
-        } catch (exception: Exception) {
-            errorMessageLiveData.value = "fuck u"
+            loadingLiveData.postValue(true)
+            val searchArticleList = searchRepository.loadSearchNewsListNetwork(searchText = searchField)
+            searchArticleLiveData.postValue(searchArticleList)
+        } catch (e: Exception) {
+            errorMessageLiveData.postValue(e.message)
+        } finally {
+            loadingLiveData.postValue(false)
         }
     }
 }
