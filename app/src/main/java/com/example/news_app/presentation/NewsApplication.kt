@@ -32,9 +32,9 @@ class NewsApplication : Application() {
                 viewModelModule,
                 repositoryModule,
                 networkModule,
-                serviceModule/*,
-            databaseModule,
-            daoModule*/
+                serviceModule,
+                databaseModule,
+                daoModule
             )
         )
     }
