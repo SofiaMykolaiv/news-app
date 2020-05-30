@@ -9,6 +9,7 @@ import com.example.news_app.presentation.base.BaseFragment
 import com.example.news_app.presentation.mapper.mapSearchToArticleModel
 import com.example.news_app.presentation.model.SearchArticleModel
 import com.example.news_app.presentation.newsdetails.NewsDetailsFragment
+import com.example.news_app.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
@@ -30,6 +31,8 @@ class SearchFragment : BaseFragment<SearchViewModel>(), SearchArticleClickListen
         setAdapter()
 
         image_search.setOnClickListener {
+            hideKeyboard()
+
             val searchText = edit_search.text.toString()
 
             if (searchText.isEmpty()) {
