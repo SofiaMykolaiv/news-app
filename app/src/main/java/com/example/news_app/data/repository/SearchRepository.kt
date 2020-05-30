@@ -1,5 +1,6 @@
 package com.example.news_app.data.repository
 
+import com.example.news_app.data.Constants
 import com.example.news_app.data.mapper.mapResponseToModel
 import com.example.news_app.data.network.retrofit.service.SearchNewsService
 import com.example.news_app.presentation.model.SearchArticleModel
@@ -10,7 +11,7 @@ class SearchRepository : BaseRepository {
     private val searchNewsService by inject<SearchNewsService>()
 
     suspend fun loadSearchNewsListNetwork(searchText: String): List<SearchArticleModel> {
-        val searchNewsResponse = searchNewsService.loadSearchList(query = searchText)
+        val searchNewsResponse = searchNewsService.loadSearchList(query = searchText, pageSize = Constants.PAGE_SIZE_MAX)
         val searchArticleList = mapResponseToModel(searchNewsResponse.articles!!)
         return searchArticleList
     }

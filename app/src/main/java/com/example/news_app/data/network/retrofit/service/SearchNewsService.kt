@@ -7,5 +7,8 @@ import retrofit2.http.Query
 interface SearchNewsService {
 
     @GET("/v2/everything")
-    suspend fun loadSearchList(@Query("q") query: String): SearchNewsResponse
+    suspend fun loadSearchList(
+        @Query("q") query: String,
+        @Query("pageSize") pageSize: Int
+    ): SearchNewsResponse
 }
