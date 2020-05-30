@@ -7,8 +7,9 @@ import com.example.news_app.databinding.ListItemArticleBinding
 import com.example.news_app.presentation.model.ArticleModel
 import com.example.news_app.utils.loadImageUrl
 
-class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(listener: ArticleClickListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
+    private val articleClickListener = listener
     private var articleList = arrayListOf<ArticleModel>()
 
     fun setList(list: List<ArticleModel>) {
@@ -26,13 +27,14 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(articleList[position])
+        holder.bind(articleList[position], articleClickListener)
     }
 
     class ViewHolder(private val binding: ListItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: ArticleModel) {
+        fun bind(model: ArticleModel, listener: ArticleClickListener) {
             binding.model = model
+            binding.clickListener = listener
             binding.articleImage.loadImageUrl(model.urlToImage)
         }
     }

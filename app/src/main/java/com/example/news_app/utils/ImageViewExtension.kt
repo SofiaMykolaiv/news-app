@@ -6,6 +6,6 @@ import com.bumptech.glide.Glide
 fun ImageView.loadImageUrl(url: String?) {
     Glide.with(context)
         .load(url)
-        .fitCenter()
+        .centerInside()
         .into(this)
 }

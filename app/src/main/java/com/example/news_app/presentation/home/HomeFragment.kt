@@ -2,15 +2,18 @@ package com.example.news_app.presentation.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
 import com.example.news_app.presentation.base.BaseFragment
+import com.example.news_app.presentation.model.ArticleModel
+import com.example.news_app.presentation.newsdetails.NewsDetailsFragment
 import com.example.news_app.utils.showSimpleErrorDialog
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 
-class HomeFragment : BaseFragment<HomeViewModel>() {
+class HomeFragment : BaseFragment<HomeViewModel>(), ArticleClickListener {
 
     private lateinit var homeAdapter: HomeAdapter
 
@@ -40,8 +43,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun setAdapter() {
-        homeAdapter = HomeAdapter()
+        homeAdapter = HomeAdapter(this)
         recycler_view.layoutManager = LinearLayoutManager(activity)
         recycler_view.adapter = homeAdapter
+    }
+
+    override fun onItemClick(articleModel: ArticleModel) {
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel))
+            .commit()
     }
 }

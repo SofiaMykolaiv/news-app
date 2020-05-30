@@ -7,11 +7,16 @@
         <variable
             name="model"
             type="com.example.news_app.presentation.model.ArticleModel" />
+
+        <variable
+            name="clickListener"
+            type="com.example.news_app.presentation.home.ArticleClickListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{()-> clickListener.onItemClick(model)}"
         android:orientation="vertical">
 
         <LinearLayout

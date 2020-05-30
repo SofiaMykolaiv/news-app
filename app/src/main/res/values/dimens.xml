@@ -17,4 +17,6 @@
     <dimen name="text_size_22sp">22sp</dimen>
     <dimen name="text_size_title">34sp</dimen>
     <dimen name="text_size_options_item">22sp</dimen>
+
+    <dimen name="image_size_250dp">250dp</dimen>
 </resources>

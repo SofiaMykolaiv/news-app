@@ -6,10 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
 import com.example.news_app.presentation.base.BaseFragment
+import com.example.news_app.presentation.mapper.mapSearchToArticleModel
+import com.example.news_app.presentation.model.SearchArticleModel
+import com.example.news_app.presentation.newsdetails.NewsDetailsFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.ext.android.inject
 
-class SearchFragment : BaseFragment<SearchViewModel>() {
+class SearchFragment : BaseFragment<SearchViewModel>(), SearchArticleClickListener {
 
     private lateinit var searchAdapter: SearchAdapter
 
@@ -49,8 +52,16 @@ class SearchFragment : BaseFragment<SearchViewModel>() {
     }
 
     private fun setAdapter() {
-        searchAdapter = SearchAdapter()
+        searchAdapter = SearchAdapter(this)
         recycler_view.layoutManager = LinearLayoutManager(activity)
         recycler_view.adapter = searchAdapter
+    }
+
+    override fun onItemClick(searchArticleModel: SearchArticleModel) {
+        val articleModel = mapSearchToArticleModel(searchArticleModel)
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel))
+            .commit()
     }
 }

@@ -7,8 +7,10 @@ import com.example.news_app.databinding.ListItemSearchArticleBinding
 import com.example.news_app.presentation.model.SearchArticleModel
 import com.example.news_app.utils.loadImageUrl
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class SearchAdapter(listener: SearchArticleClickListener) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
+    private val searchArticleClickListener = listener
     private var articleList = arrayListOf<SearchArticleModel>()
 
     fun setList(list: List<SearchArticleModel>) {
@@ -26,13 +28,14 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(articleList[position])
+        holder.bind(articleList[position], searchArticleClickListener)
     }
 
     class ViewHolder(private val binding: ListItemSearchArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(model: SearchArticleModel) {
+        fun bind(model: SearchArticleModel, listener: SearchArticleClickListener) {
             binding.model = model
+            binding.clickListener = listener
             binding.articleImage.loadImageUrl(model.urlToImage)
         }
     }

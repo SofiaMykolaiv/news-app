@@ -10,4 +10,11 @@
     <string name="header_home">Home</string>
     <string name="header_search">Search</string>
     <string name="header_favorites">Favorites</string>
+
+    <!--  News Details:  -->
+    <string name="author">Author:</string>
+    <string name="title">Title:</string>
+    <string name="website">Website:</string>
+    <string name="published_at">Published at:</string>
+    <string name="content">Content:</string>
 </resources>
