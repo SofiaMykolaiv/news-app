@@ -15,10 +15,22 @@ class HomeViewModel : BaseViewModel() {
 
     val articleLiveData = MutableLiveData<List<ArticleModel>>()
 
-    fun getArticleList() = CoroutineScope(Dispatchers.IO).launch {
+    fun getArticleListNetwork() = CoroutineScope(Dispatchers.IO).launch {
         try {
             loadingLiveData.postValue(true)
             val articleList = homeRepository.loadArticleListNetwork()
+            articleLiveData.postValue(articleList)
+        } catch (e: Exception) {
+            errorMessageLiveData.postValue(e.message)
+        } finally {
+            loadingLiveData.postValue(false)
+        }
+    }
+
+    fun getArticleListDatabase() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            loadingLiveData.postValue(true)
+            val articleList = homeRepository.loadArticleListDatabase()
             articleLiveData.postValue(articleList)
         } catch (e: Exception) {
             errorMessageLiveData.postValue(e.message)

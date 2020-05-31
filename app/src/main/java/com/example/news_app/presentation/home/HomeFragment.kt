@@ -1,8 +1,6 @@
 package com.example.news_app.presentation.home
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
@@ -29,16 +27,24 @@ class HomeFragment : BaseFragment<HomeViewModel>(), ArticleClickListener {
         super.onActivityCreated(savedInstanceState)
 
         setAdapter()
-        viewModel.getArticleList()
+
+        viewModel.getArticleListDatabase()
+
+        swipe_refresh.setOnRefreshListener {
+            swipe_refresh.isRefreshing = true
+            viewModel.getArticleListNetwork()
+        }
 
         viewModel.articleLiveData.observe(viewLifecycleOwner, Observer { list ->
             homeAdapter.setList(list)
         })
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { exceptionMessage ->
             showSimpleErrorDialog(context, null, exceptionMessage, null, null)
+            swipe_refresh.isRefreshing = false
         })
         viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
             setLoadingState(isLoading)
+            swipe_refresh.isRefreshing = false
         })
     }
 
