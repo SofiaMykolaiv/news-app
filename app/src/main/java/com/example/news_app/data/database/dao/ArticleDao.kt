@@ -20,4 +20,10 @@ interface ArticleDao {
 
     @Query("SELECT * FROM TABLE_ARTICLE")
     suspend fun getList(): List<ArticleEntity>
+
+    @Query("SELECT * FROM TABLE_ARTICLE WHERE title = :title")
+    suspend fun getArticle(title: String): ArticleEntity
+
+    @Query("SELECT * FROM TABLE_ARTICLE WHERE isFavourite = :isFavourite")
+    suspend fun getFavouriteList(isFavourite: Boolean): List<ArticleEntity>
 }

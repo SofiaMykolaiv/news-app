@@ -4,26 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_text_name"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/edit_text_last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/button_show_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="show result" />
-
-    <TextView
-        android:layout_marginTop="50dp"
-        android:id="@+id/text_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"/>
 </LinearLayout>

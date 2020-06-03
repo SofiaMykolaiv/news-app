@@ -15,10 +15,10 @@ class FavouriteViewModel() : BaseViewModel() {
 
     val favouriteLiveData = MutableLiveData<List<FavouriteModel>>()
 
-    fun loadFavouriteList() = CoroutineScope(Dispatchers.IO).launch {
+    fun loadFavouriteListDatabase() = CoroutineScope(Dispatchers.IO).launch {
         try {
             loadingLiveData.postValue(true)
-            val response = favouriteRepository.loadFavouriteListNetwork()
+            val response = favouriteRepository.loadFavouriteListDatabase()
             favouriteLiveData.postValue(response)
         } catch (exception: Exception) {
             errorMessageLiveData.postValue(exception.message)

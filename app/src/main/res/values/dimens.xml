@@ -19,4 +19,5 @@
     <dimen name="text_size_options_item">22sp</dimen>
 
     <dimen name="image_size_250dp">250dp</dimen>
+    <dimen name="image_size_default">48dp</dimen>
 </resources>

@@ -64,7 +64,7 @@ class SearchFragment : BaseFragment<SearchViewModel>(), SearchArticleClickListen
         val articleModel = mapSearchToArticleModel(searchArticleModel)
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel))
+            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel.title!!))
             .commit()
     }
 }

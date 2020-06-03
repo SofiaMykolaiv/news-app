@@ -14,7 +14,18 @@
             android:id="@+id/image_news"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_size_250dp"
-            tools:src="@tools:sample/backgrounds/scenic"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/image_favourite"
+            android:layout_width="@dimen/image_size_default"
+            android:layout_height="@dimen/image_size_default"
+            android:layout_marginStart="@dimen/spacing_default"
+            android:layout_marginTop="@dimen/spacing_default"
+            android:layout_marginEnd="@dimen/spacing_default"
+            tools:src="@drawable/ic_like"
+            android:tint="@color/red"
             tools:ignore="ContentDescription" />
 
         <LinearLayout

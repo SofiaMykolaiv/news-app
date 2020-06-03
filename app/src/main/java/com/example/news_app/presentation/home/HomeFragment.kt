@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.news_app.R
+import com.example.news_app.presentation.adapter.ArticleAdapter
 import com.example.news_app.presentation.base.BaseFragment
 import com.example.news_app.presentation.model.ArticleModel
 import com.example.news_app.presentation.newsdetails.NewsDetailsFragment
@@ -13,7 +14,7 @@ import org.koin.android.ext.android.inject
 
 class HomeFragment : BaseFragment<HomeViewModel>(), ArticleClickListener {
 
-    private lateinit var homeAdapter: HomeAdapter
+    private lateinit var articleAdapter: ArticleAdapter
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -36,7 +37,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(), ArticleClickListener {
         }
 
         viewModel.articleLiveData.observe(viewLifecycleOwner, Observer { list ->
-            homeAdapter.setList(list)
+            articleAdapter.setList(list)
         })
         viewModel.errorMessageLiveData.observe(viewLifecycleOwner, Observer { exceptionMessage ->
             showSimpleErrorDialog(context, null, exceptionMessage, null, null)
@@ -49,15 +50,15 @@ class HomeFragment : BaseFragment<HomeViewModel>(), ArticleClickListener {
     }
 
     private fun setAdapter() {
-        homeAdapter = HomeAdapter(this)
+        articleAdapter = ArticleAdapter(this)
         recycler_view.layoutManager = LinearLayoutManager(activity)
-        recycler_view.adapter = homeAdapter
+        recycler_view.adapter = articleAdapter
     }
 
     override fun onItemClick(articleModel: ArticleModel) {
         parentFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel))
+            .replace(R.id.fragment_nav_host, NewsDetailsFragment.newInstance(articleModel.title ?: ""))
             .commit()
     }
 }
