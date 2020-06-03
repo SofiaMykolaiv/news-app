@@ -18,7 +18,6 @@ class HomeRepository : BaseRepository {
         val newsResponse = newsService.loadNewsList(country = Constants.COUNTRY_US)
         val articleList = mapResponseToModel(newsResponse.articles!!)
         articleDao.insert(mapResponseToEntity(newsResponse.articles))
-        val s = ""
         return articleList
     }
 

@@ -47,7 +47,8 @@ fun mapEntityToModel(articleList: List<ArticleEntity>) = articleList.map { artic
         urlToImage = articleEntity.urlToImage,
         urlToWebsite = articleEntity.urlToWebsite,
         publishedAt = articleEntity.publishedAt,
-        content = articleEntity.content
+        content = articleEntity.content,
+        isFavourite = articleEntity.isFavourite
     )
 }
 
@@ -70,7 +71,8 @@ fun mapEntityToModel(articleEntity: ArticleEntity) = ArticleModel(
     urlToImage = articleEntity.urlToImage,
     urlToWebsite = articleEntity.urlToWebsite,
     publishedAt = articleEntity.publishedAt,
-    content = articleEntity.content
+    content = articleEntity.content,
+    isFavourite = articleEntity.isFavourite
 )
 
 fun mapModelToEntity(articleModel: ArticleModel) = ArticleEntity(
