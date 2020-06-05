@@ -14,10 +14,17 @@ class NewsDetailsFragment : BaseFragment<NewsDetailsViewModel>() {
 
     companion object {
         private const val KEY_TITLE = "key_title"
+        private const val KEY_MODEL = "key_model"
 
         fun newInstance(articleTitle: String) = NewsDetailsFragment().apply {
             arguments = Bundle().apply {
                 putString(KEY_TITLE, articleTitle)
+            }
+        }
+
+        fun newInstance(articleModel: ArticleModel) = NewsDetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(KEY_MODEL, articleModel)
             }
         }
     }
@@ -30,15 +37,23 @@ class NewsDetailsFragment : BaseFragment<NewsDetailsViewModel>() {
         super.onActivityCreated(savedInstanceState)
 
         val articleTitle = arguments?.getString(KEY_TITLE)
+        val articleModel = arguments?.getParcelable<ArticleModel>(KEY_MODEL)
 
-        image_favourite.setOnClickListener {
-            setIsFavourite(articleTitle)
+        if (articleModel != null) {
+            image_favourite.setOnClickListener {
+                setIsFavourite(articleModel.title)
+            }
+            initView(articleModel)
+        } else {
+            image_favourite.setOnClickListener {
+                setIsFavourite(articleTitle)
+            }
+
+            viewModel.getArticleFromDatabase(articleTitle)
         }
 
-        viewModel.getArticleFromDatabase(articleTitle)
-
-        viewModel.newsDetailsLiveData.observe(viewLifecycleOwner, Observer { articleModel ->
-            initView(articleModel)
+        viewModel.newsDetailsLiveData.observe(viewLifecycleOwner, Observer { article ->
+            initView(article)
         })
         viewModel.loadingLiveData.observe(viewLifecycleOwner, Observer { isLoading ->
             setLoadingState(isLoading)
@@ -55,7 +70,7 @@ class NewsDetailsFragment : BaseFragment<NewsDetailsViewModel>() {
         })
     }
 
-    private fun initView(articleModel: ArticleModel?) = articleModel?.let { model ->
+    private fun initView(articleModel: ArticleModel) = articleModel.let { model ->
         image_news.loadImageUrl(url = model.urlToImage)
         text_author.text = model.author
         text_title.text = model.title
